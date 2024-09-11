@@ -3,11 +3,12 @@ const client = new Client();
 
 const token = process.env.DISCORD_TOKEN; // Menggunakan environment variable dari Vercel
 const channelId = '1283337144215277650'; // Ganti dengan ID channel
-const messageContent = 'Hallo MasD!!!'; // Ganti dengan pesan yang diinginkan
+const messageContent = 'Pesan otomatis dari selfbot'; // Ganti dengan pesan yang diinginkan
+const delay = 10000; // 10 detik dalam milidetik
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}`);
-    sendMessage();
+    sendMessageContinuously(); // Jalankan pengiriman pesan terus-menerus
 });
 
 function sendMessage() {
@@ -19,6 +20,13 @@ function sendMessage() {
     } else {
         console.log('Channel tidak ditemukan.');
     }
+}
+
+function sendMessageContinuously() {
+    // Kirim pesan setiap 10 detik
+    setInterval(() => {
+        sendMessage();
+    }, delay);
 }
 
 // Fungsi handler Vercel untuk menerima request HTTP
