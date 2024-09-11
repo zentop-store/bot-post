@@ -7,7 +7,10 @@ const messageContent = 'Pesan otomatis dari selfbot'; // Ganti dengan pesan yang
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}`);
-    sendMessage();
+    // Kirim pesan setiap 5 menit
+    setInterval(() => {
+        sendMessage();
+    }, 1000); // 300000 ms = 5 menit
 });
 
 function sendMessage() {
@@ -21,12 +24,4 @@ function sendMessage() {
     }
 }
 
-// Fungsi handler Vercel untuk menerima request HTTP
-module.exports = async (req, res) => {
-    client.login(token).then(() => {
-        res.status(200).json({ message: 'Pesan dikirim melalui Discord selfbot!' });
-    }).catch(error => {
-        console.error(error);
-        res.status(500).json({ message: 'Gagal login ke Discord selfbot.' });
-    });
-};
+client.login(token);
