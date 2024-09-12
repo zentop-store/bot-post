@@ -4,10 +4,10 @@ const app = express();
 const client = new Client();
 
 const token = process.env.DISCORD_TOKEN;
-const channelId = '1283337144215277650';
+const channelId = 'ID_CHANNEL';
 const messageContent = 'Pesan otomatis dari selfbot';
 
-// Discord bot logic
+// Bot Discord
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}`);
     sendMessage();
@@ -26,7 +26,7 @@ function sendMessage() {
 
 client.login(token);
 
-// Dummy HTTP server for health check
+// Server HTTP untuk health check
 app.get('/', (req, res) => {
     res.send('Bot is running');
 });
