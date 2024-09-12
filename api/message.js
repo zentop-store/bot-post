@@ -4,7 +4,7 @@ const app = express();
 const client = new Client();
 
 const token = process.env.DISCORD_TOKEN;
-const channelId = 'ID_CHANNEL';
+const channelId = '1283337144215277650';
 const messageContent = 'Pesan otomatis dari selfbot';
 
 // Bot Discord
