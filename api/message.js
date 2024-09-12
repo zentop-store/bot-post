@@ -1,14 +1,16 @@
+const express = require('express');
 const { Client } = require('discord.js-selfbot-v13');
+const app = express();
 const client = new Client();
 
-const token = process.env.DISCORD_TOKEN; // Menggunakan environment variable dari Vercel
-const channelId = '1283337144215277650'; // Ganti dengan ID channel
-const messageContent = 'Pesan otomatis dari selfbot'; // Ganti dengan pesan yang diinginkan
-const delay = 10000; // 10 detik dalam milidetik
+const token = process.env.DISCORD_TOKEN;
+const channelId = '1283337144215277650';
+const messageContent = 'Pesan otomatis dari selfbot';
 
+// Discord bot logic
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}`);
-    sendMessageContinuously(); // Jalankan pengiriman pesan terus-menerus
+    sendMessage();
 });
 
 function sendMessage() {
@@ -22,20 +24,14 @@ function sendMessage() {
     }
 }
 
-function sendMessageContinuously() {
-    // Kirim pesan setiap 10 detik
-    setInterval(() => {
-        sendMessage();
-    }, delay);
-}
+client.login(token);
 
-// Fungsi handler Vercel untuk menerima request HTTP
-module.exports = async (req, res) => {
-    try {
-        await client.login(token);  // Login client Discord
-        res.status(200).json({ message: 'Pesan dikirim melalui Discord selfbot!' });
-    } catch (error) {
-        console.error('Gagal login ke Discord:', error);
-        res.status(500).json({ message: 'Gagal login ke Discord selfbot.' });
-    }
-};
+// Dummy HTTP server for health check
+app.get('/', (req, res) => {
+    res.send('Bot is running');
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server is listening on port ${PORT}`);
+});
